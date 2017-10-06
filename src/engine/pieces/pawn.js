@@ -10,7 +10,6 @@ export default class Pawn extends Piece {
 
 
     getAvailableMoves(board, moved) {
-        let thisBoard = board.showBoard()
         let available = []
         // add this.moved in piece - # of moves
 
@@ -19,14 +18,13 @@ export default class Pawn extends Piece {
             // can only move one square up if they have moved
             if (this.moved) {
                 let current = board.findPiece(this)
-                return [Square.at(current.row+1, current.col)]
+                return [Square.at(current.row + 1, current.col)]
+            } else {
+                // can move one or two squares up on their first move
+                let current = board.findPiece(this)
+                return [Square.at(current.row + 1, current.col), Square.at(current.row + 2, current.col)]
             }
 
-            // can move one or two squares up on their first move
-            if (this.moved == 0) {
-                let current = board.findPiece(this)
-                return [Square.at(current.row+1, current.col), Square.at(current.row+2, current.col)]
-            }
         }
 
         // BLACK
@@ -34,23 +32,14 @@ export default class Pawn extends Piece {
             // can only down one square up if they have moved
             if (this.moved) {
                 let current = board.findPiece(this)
-                return [Square.at(current.row-1, current.col)]
-            }
-
-            // can down one or two squares up on their first move
-            if (this.moved == 0) {
+                return [Square.at(current.row - 1, current.col)]
+            } else {
+                // can down one or two squares up on their first move
                 let current = board.findPiece(this)
-                return [Square.at(current.row-1, current.col), Square.at(current.row-2, current.col)]
+                return [Square.at(current.row - 1, current.col), Square.at(current.row - 2, current.col)]
             }
+
         }
 
-        for (let row = 0; row < thisBoard.length; row++) {
-            for (let col = 0; col < thisBoard.length; col++) {
-                if (!thisBoard[row][col]) {
-                    available.push(Square.at(row, col))
-                }
-            }
-        }
-        return available
     }
 }

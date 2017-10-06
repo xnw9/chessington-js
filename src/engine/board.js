@@ -35,6 +35,15 @@ export default class Board {
         throw new Error('The supplied piece is not on the board');
     }
 
+    checkPos(square) {
+        if (this.board[square.row][square.col]) {
+            return true
+        } else {
+            return false
+        }
+
+    }
+
     movePiece(fromSquare, toSquare) {
         const movingPiece = this.getPiece(fromSquare);        
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
@@ -44,7 +53,4 @@ export default class Board {
         }
     }
 
-    showBoard() {
-        return this.board
-    }
 }
