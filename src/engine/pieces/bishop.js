@@ -1,5 +1,5 @@
 import Piece from './piece';
-import Square from 'C:/Work/Training/chessington-js/src/engine/square';
+import Square from '../../../src/engine/square';
 import Player from "../player";
 
 export default class Bishop extends Piece {
@@ -19,15 +19,15 @@ export default class Bishop extends Piece {
         for (let i in negs) {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col + j)
-            if (!this.checkEmptySquare(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {        // if meet with a non-empty square
                 if (this.checkTake(board, square)) {
-                    available.push(square)
+                    available.push(square)          // if the piece on it can be taken, record it to available moves
                 }
-                break
+                break           // no more available mores on this line
             }
             available.push(square)
-
         }
+
         for (let i in negs) {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col - j)
@@ -50,8 +50,8 @@ export default class Bishop extends Piece {
                 break
             }
             available.push(square)
-
         }
+
         for (let i in poss) {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col - j)

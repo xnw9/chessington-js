@@ -1,5 +1,5 @@
 import Piece from './piece';
-import Square from 'C:/Work/Training/chessington-js/src/engine/square';
+import Square from '../../../src/engine/square';
 
 export default class Queen extends Piece {
     constructor(player) {
@@ -7,13 +7,13 @@ export default class Queen extends Piece {
     }
 
     getAvailableMoves(board) {
-        // TODO: equivalent to rook + bishop
+        // TODO: just import from rook + bishop?
         let current = board.findPiece(this)
         let available = []
 
         // "rook"
         // vertical: current to bottom
-        for (let row = current.row-1; row >=-1; row--) {
+        for (let row = current.row - 1; row >= -1; row--) {
             let col = current.col
             let square = Square.at(row, col)
 
@@ -27,7 +27,7 @@ export default class Queen extends Piece {
 
         }
         // vertical: current to top
-        for (let row = current.row+1; row < 9; row++) {
+        for (let row = current.row + 1; row <= 8; row++) {
             let col = current.col
             let square = Square.at(row, col)
 
@@ -42,7 +42,7 @@ export default class Queen extends Piece {
 
 
         // horizontal: current to left
-        for (let col = current.col-1; col >= -1; col--) {
+        for (let col = current.col - 1; col >= -1; col--) {
             let row = current.row
             let square = Square.at(row, col)
 
@@ -56,7 +56,7 @@ export default class Queen extends Piece {
 
         }
         // horizontal: current to right
-        for (let col = current.col+1; col < 9; col++) {
+        for (let col = current.col + 1; col <= 8; col++) {
             let row = current.row
             let square = Square.at(row, col)
 
@@ -83,7 +83,7 @@ export default class Queen extends Piece {
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
         for (let i in negs) {
             let j = negs[i]
@@ -95,7 +95,7 @@ export default class Queen extends Piece {
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
 
         for (let i in poss) {
@@ -108,7 +108,7 @@ export default class Queen extends Piece {
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
         for (let i in poss) {
             let j = poss[i]
@@ -120,7 +120,7 @@ export default class Queen extends Piece {
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
 
         return available

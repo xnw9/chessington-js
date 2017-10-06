@@ -8,12 +8,12 @@ export default class Piece {
 
     // check if the piece can be placed, for knight, king (discrete positions)
     // if so, push the square into available move list
-    canBePutOn(board, square, available) {          //
+    canBePutOn(board, square, available) {
         if (board.checkWithin(square)) {        // square is within the board
             if (!board.checkOccupancy(square)) {        // square is empty
                 available.push(square)
             } else {
-                if (this.checkTake(board, square)) {          // if not empty but the piece on the square can be taken
+                if (this.checkTake(board, square)) {          // if square is not empty but the piece on the square can be taken
                     available.push(square)
                 }
             }
@@ -60,13 +60,13 @@ export default class Piece {
         let current = board.findPiece(this)
 
         if (this.player == Player.WHITE) {
-            if (square.row == current.row + 1 && Math.abs(square.col - current.col)==1) {
+            if (square.row == current.row + 1 && Math.abs(square.col - current.col) == 1) {
                 return true
             }
             return false
         }
         if (this.player == Player.BLACK) {
-            if (square.row == current.row - 1 && Math.abs(square.col - current.col)==1) {
+            if (square.row == current.row - 1 && Math.abs(square.col - current.col) == 1) {
                 return true
             }
             return false

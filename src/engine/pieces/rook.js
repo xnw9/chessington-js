@@ -1,5 +1,5 @@
 import Piece from './piece';
-import Square from 'C:/Work/Training/chessington-js/src/engine/square';
+import Square from '../../../src/engine/square';
 
 export default class Rook extends Piece {
     constructor(player) {
@@ -11,7 +11,7 @@ export default class Rook extends Piece {
         let available = []
 
         // vertical: current to bottom
-        for (let row = current.row-1; row >=-1; row--) {
+        for (let row = current.row - 1; row >= -1; row--) {
             let col = current.col
             let square = Square.at(row, col)
 
@@ -21,50 +21,50 @@ export default class Rook extends Piece {
                 }
                 break
             }
-            available.push(square)          // otherwise valid move
+            available.push(square)
 
         }
         // vertical: current to top
-        for (let row = current.row+1; row < 9; row++) {
+        for (let row = current.row + 1; row <= 8; row++) {
             let col = current.col
             let square = Square.at(row, col)
 
-            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+            if (!this.checkEmptySquare(board, square)) {
                 if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
             }
-            available.push(square)          // otherwise valid move
+            available.push(square)
         }
 
 
         // horizontal: current to left
-        for (let col = current.col-1; col >= -1; col--) {
+        for (let col = current.col - 1; col >= -1; col--) {
             let row = current.row
             let square = Square.at(row, col)
 
-            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+            if (!this.checkEmptySquare(board, square)) {
                 if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
             }
-            available.push(square)          // otherwise valid move
+            available.push(square)
 
         }
         // horizontal: current to right
-        for (let col = current.col+1; col < 9; col++) {
+        for (let col = current.col + 1; col <= 8; col++) {
             let row = current.row
             let square = Square.at(row, col)
 
-            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+            if (!this.checkEmptySquare(board, square)) {
                 if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
             }
-            available.push(square)          // otherwise valid move
+            available.push(square)
         }
 
         return available
