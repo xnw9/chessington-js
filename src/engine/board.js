@@ -43,4 +43,8 @@ export default class Board {
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
     }
+
+    showBoard() {
+        return this.board
+    }
 }
