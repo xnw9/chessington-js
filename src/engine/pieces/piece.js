@@ -20,7 +20,7 @@ export default class Piece {
         }
         return available
     }
-    
+
 
     // similar, but does not include piece-capturing, for pawn
     canPawnBePutOn(board, square, available) {
@@ -52,7 +52,8 @@ export default class Piece {
             return false
         }
 
-        if (this.player == board.getPiece(square).player) {
+        let anotherPiece = board.getPiece(square)
+        if (anotherPiece.constructor.name == "King" || this.player == board.getPiece(square).player) {
             return false
         }
 
