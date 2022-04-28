@@ -35,17 +35,22 @@ export default class Board {
         throw new Error('The supplied piece is not on the board');
     }
 
+    // check if it is occupied
     checkPos(square) {
-        if (this.board[square.row][square.col]) {
-            return true
-        } else {
-            return false
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                return this.board.includes(Square.at(row, col))
+            }
         }
+    }
 
+    // check if it is within board
+    checkWithin(square) {
+        return 0 <= square.row && square.row <= 7 && 0 <= square.col && square.col <= 7
     }
 
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);

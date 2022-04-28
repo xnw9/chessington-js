@@ -10,17 +10,20 @@ export default class Rook extends Piece {
         let current = board.findPiece(this)
         let available = []
 
+        // vertical
         for (let row = 0; row < 8; row++) {
             let col = current.col
             let square = Square.at(row, col)
-            if (!board.checkPos(square)) {
+            if (!board.checkPos(square) && square.row != current.row) {   // not to include current position
                 available.push(square)
             }
         }
+
+        // horizontal
         for (let col = 0; col < 8; col++) {
             let row = current.row
             let square = Square.at(row, col)
-            if (!board.checkPos(square)) {
+            if (!board.checkPos(square) && square.col != current.col) {
                 available.push(square)
             }
         }
