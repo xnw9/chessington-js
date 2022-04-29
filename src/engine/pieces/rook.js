@@ -10,31 +10,49 @@ export default class Rook extends Piece {
         let current = board.findPiece(this)
         let available = []
 
-        // vertical
-        for (let row = 0; row < 8; row++) {
+        // vertical: current to bottom
+        for (let row = current.row-1; row >=-1; row--) {
             let col = current.col
             let square = Square.at(row, col)
 
-            if (square.row != current.row) {        // not including itself
-                if (board.checkOccupancy(square)) {         // stop as soon as meeting another piece
-                    break
-                }
-                available.push(square)          // otherwise valid move
+            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                break
             }
+            available.push(square)          // otherwise valid move
+
+        }
+        // vertical: current to top
+        for (let row = current.row+1; row < 9; row++) {
+            let col = current.col
+            let square = Square.at(row, col)
+
+            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                break
+            }
+            available.push(square)          // otherwise valid move
         }
 
-        // horizontal
-        for (let col = 0; col < 8; col++) {
+
+        // horizontal: current to left
+        for (let col = current.col-1; col >= -1; col--) {
             let row = current.row
             let square = Square.at(row, col)
 
-            if (square.col != current.col) {
-                if (board.checkOccupancy(square)) {
-                    break
-                }
-                available.push(square)
+            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                break
             }
+            available.push(square)          // otherwise valid move
 
+        }
+        // horizontal: current to right
+        for (let col = current.col+1; col < 9; col++) {
+            let row = current.row
+            let square = Square.at(row, col)
+
+            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                break
+            }
+            available.push(square)          // otherwise valid move
         }
 
         return available

@@ -26,6 +26,26 @@ describe('Rook', () => {
         moves.should.deep.include.members(expectedMoves);
     });
 
+    // added test
+    it("can move at top right", () => {
+        const rook = new Rook(Player.BLACK);
+        const blocker = new Pawn(Player.BLACK);
+
+        board.setPiece(Square.at(7, 7), rook);
+        board.setPiece(Square.at(3, 7), blocker);
+
+        const moves = rook.getAvailableMoves(board);
+
+        const expectedMoves = [
+            // v
+            Square.at(7, 0), Square.at(7, 1), Square.at(7, 2), Square.at(7, 3), Square.at(7, 4), Square.at(7, 5), Square.at(7, 6),
+            // h
+            Square.at(4, 7), Square.at(5, 7), Square.at(6, 7)
+        ];
+
+        moves.should.deep.include.members(expectedMoves);
+    })
+
     it('cannot make any other moves', () => {
         const rook = new Rook(Player.WHITE);
         board.setPiece(Square.at(1, 2), rook);
