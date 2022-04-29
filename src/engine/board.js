@@ -36,12 +36,8 @@ export default class Board {
     }
 
     // check if it is occupied
-    checkPos(square) {
-        for (let row = 0; row < 8; row++) {
-            for (let col = 0; col < 8; col++) {
-                return this.board.includes(Square.at(row, col))
-            }
-        }
+    checkOccupance(square) {
+        return this.board.includes(square)
     }
 
     // check if it is within board

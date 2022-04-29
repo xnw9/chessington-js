@@ -17,7 +17,7 @@ export default class Bishop extends Piece {
             let j = nums[i]
             let square = Square.at(current.row + j, current.col + j)
             if (board.checkWithin(square)) {
-                if (!board.checkPos(square)) {
+                if (!board.checkOccupance(square)) {
                     available.push(square)
                 }
             }
@@ -26,7 +26,7 @@ export default class Bishop extends Piece {
             let j = nums[i]
             let square = Square.at(current.row + j, current.col - j)
             if (board.checkWithin(square)) {
-                if (!board.checkPos(square)) {
+                if (!board.checkOccupance(square)) {
                     available.push(square)
                 }
             }
