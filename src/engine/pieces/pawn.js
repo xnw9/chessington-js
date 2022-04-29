@@ -8,38 +8,48 @@ export default class Pawn extends Piece {
         super(player);
     }
 
-
     getAvailableMoves(board, moved) {
         let available = []
+        let current = board.findPiece(this)
         // add this.moved in piece - # of moves
 
         // WHITE
         if (this.player == Player.WHITE) {
-            // can only move one square up if they have moved
-            if (this.moved) {
-                let current = board.findPiece(this)
-                return [Square.at(current.row + 1, current.col)]
-            } else {
-                // can move one or two squares up on their first move
-                let current = board.findPiece(this)
-                return [Square.at(current.row + 1, current.col), Square.at(current.row + 2, current.col)]
+
+            let square = Square.at(current.row + 1, current.col)
+
+            if (!this.verifyPutOn(board, square)) {             // if blocker in front, cannot make any move
+                return []
+            }
+
+            available = this.canBePutOn(board, square, available)           // otherwise record this move
+            // a bit repeated
+
+            if (!this.moved) {          // first move - so verify if can move two squares
+                let square = Square.at(current.row + 2, current.col)
+                available = this.canBePutOn(board, square, available)
             }
 
         }
 
         // BLACK
         if (this.player == Player.BLACK) {
-            // can only down one square up if they have moved
-            if (this.moved) {
-                let current = board.findPiece(this)
-                return [Square.at(current.row - 1, current.col)]
-            } else {
-                // can down one or two squares up on their first move
-                let current = board.findPiece(this)
-                return [Square.at(current.row - 1, current.col), Square.at(current.row - 2, current.col)]
+            let square = Square.at(current.row - 1, current.col)
+
+            if (!this.verifyPutOn(board, square)) {
+                return []
+            }
+
+            available = this.canBePutOn(board, square, available)
+
+            if (!this.moved) {
+                let square = Square.at(current.row - 2, current.col)
+                available = this.canBePutOn(board, square, available)
             }
 
         }
+
+        return available
 
     }
 }

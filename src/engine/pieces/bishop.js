@@ -16,6 +16,8 @@ export default class Bishop extends Piece {
         for (let i in nums) {
             let j = nums[i]
             let square = Square.at(current.row + j, current.col + j)
+            if (board.checkWithin(square)) {
+            }
             available = this.canBePutOn(board, square, available)
         }
         for (let i in nums) {

@@ -35,9 +35,13 @@ export default class Board {
         throw new Error('The supplied piece is not on the board');
     }
 
-    // check if it is occupied
-    checkOccupance(square) {
-        return this.board.includes(square)
+    // check if it is occupied - can only check for same colour!
+    checkOccupancy(square) {
+        if (this.board[square.row][square.col]) {
+            return true
+        } else {
+            return false
+        }
     }
 
     // check if it is within board

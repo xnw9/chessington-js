@@ -1,18 +1,27 @@
 export default class Piece {
     constructor(player) {
         this.player = player;
-        this.moved = 0
+        this.moved = 0              // but only for pawn
     }
 
     // check if the piece can be placed on this square on this board
     // if so, push the square into available move list
     canBePutOn(board, square, available) {
         if (board.checkWithin(square)) {        // square is within the board
-            if (!board.checkOccupance(square)) {        // square is empty
+            if (!board.checkOccupancy(square)) {        // square is empty
                 available.push(square)
             }
         }
         return available
+    }
+
+    verifyPutOn(board, square) {
+        if (board.checkWithin(square)) {        // square is within the board
+            if (!board.checkOccupancy(square)) {        // square is empty
+                return true
+            }
+        }
+        return false
     }
 
     getAvailableMoves(board) {

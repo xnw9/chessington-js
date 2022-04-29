@@ -14,7 +14,7 @@ export default class Rook extends Piece {
         for (let row = 0; row < 8; row++) {
             let col = current.col
             let square = Square.at(row, col)
-            if (!board.checkOccupance(square) && square.row != current.row) {   // not to include current position
+            if (!board.checkOccupancy(square) && square.row != current.row) {   // not to include current position
                 available.push(square)
             }
         }
@@ -23,7 +23,7 @@ export default class Rook extends Piece {
         for (let col = 0; col < 8; col++) {
             let row = current.row
             let square = Square.at(row, col)
-            if (!board.checkOccupance(square) && square.col != current.col) {
+            if (!board.checkOccupancy(square) && square.col != current.col) {
                 available.push(square)
             }
         }
