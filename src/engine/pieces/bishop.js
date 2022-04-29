@@ -11,19 +11,46 @@ export default class Bishop extends Piece {
         let available = []
 
         // TODO: can be neater...
-        let nums = [-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
+        // start from current position
+        let negs = [-1, -2, -3, -4, -5, -6, -7]
+        let poss = [1, 2, 3, 4, 5, 6, 7]
 
-        for (let i in nums) {
-            let j = nums[i]
+        for (let i in negs) {
+            let j = negs[i]
             let square = Square.at(current.row + j, current.col + j)
-            if (board.checkWithin(square)) {
+            if (!this.verifyPutOn(board, square)) {
+                break
             }
-            available = this.canBePutOn(board, square, available)
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
         }
-        for (let i in nums) {
-            let j = nums[i]
+        for (let i in negs) {
+            let j = negs[i]
             let square = Square.at(current.row + j, current.col - j)
-            available = this.canBePutOn(board, square, available)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
+        }
+
+        for (let i in poss) {
+            let j = poss[i]
+            let square = Square.at(current.row + j, current.col + j)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
+        }
+        for (let i in poss) {
+            let j = poss[i]
+            let square = Square.at(current.row + j, current.col - j)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
         }
 
         return available
