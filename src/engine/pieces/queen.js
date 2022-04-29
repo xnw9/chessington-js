@@ -7,7 +7,7 @@ export default class Queen extends Piece {
     }
 
     getAvailableMoves(board) {
-        // equivalent to rook + bishop
+        // TODO: equivalent to rook + bishop
         let current = board.findPiece(this)
         let available = []
 
@@ -15,8 +15,11 @@ export default class Queen extends Piece {
         for (let row = 0; row < 8; row++) {
             let col = current.col
             let square = Square.at(row, col)
-            if (!board.checkOccupancy(square) && square.row != current.row) {   // not to include current position
-                available.push(square)
+            if (square.row != current.row) {        // not including itself
+                if (board.checkOccupancy(square)) {         // stop as soon as meeting another piece
+                    break
+                }
+                available.push(square)          // otherwise valid move
             }
         }
 
@@ -24,25 +27,53 @@ export default class Queen extends Piece {
         for (let col = 0; col < 8; col++) {
             let row = current.row
             let square = Square.at(row, col)
-            if (!board.checkOccupancy(square) && square.col != current.col) {
+            if (square.col != current.col) {
+                if (board.checkOccupancy(square)) {
+                    break
+                }
                 available.push(square)
             }
         }
 
-        let nums = [-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7]
+        let negs = [-1, -2, -3, -4, -5, -6, -7]
+        let poss = [1, 2, 3, 4, 5, 6, 7]
 
-        // first and third quadrant
-        for (let i in nums) {
-            let j = nums[i]
+        for (let i in negs) {
+            let j = negs[i]
             let square = Square.at(current.row + j, current.col + j)
-            available = this.canBePutOn(board, square, available)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
+        }
+        for (let i in negs) {
+            let j = negs[i]
+            let square = Square.at(current.row + j, current.col - j)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
         }
 
-        //second and fourth quadrant
-        for (let i in nums) {
-            let j = nums[i]
+        for (let i in poss) {
+            let j = poss[i]
+            let square = Square.at(current.row + j, current.col + j)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
+        }
+        for (let i in poss) {
+            let j = poss[i]
             let square = Square.at(current.row + j, current.col - j)
-            available = this.canBePutOn(board, square, available)
+            if (!this.verifyPutOn(board, square)) {
+                break
+            }
+            available.push(square)
+            // available = this.canBePutOn(board, square, available)
         }
 
         return available
