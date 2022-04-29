@@ -35,22 +35,14 @@ export default class Queen extends Piece {
         for (let i in nums) {
             let j = nums[i]
             let square = Square.at(current.row + j, current.col + j)
-            if (board.checkWithin(square)) {
-                if (!board.checkOccupance(square)) {
-                    available.push(square)
-                }
-            }
+            available = this.canBePutOn(board, square, available)
         }
 
         //second and fourth quadrant
         for (let i in nums) {
             let j = nums[i]
             let square = Square.at(current.row + j, current.col - j)
-            if (board.checkWithin(square)) {
-                if (!board.checkOccupance(square)) {
-                    available.push(square)
-                }
-            }
+            available = this.canBePutOn(board, square, available)
         }
 
         return available

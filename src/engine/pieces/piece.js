@@ -4,6 +4,17 @@ export default class Piece {
         this.moved = 0
     }
 
+    // check if the piece can be placed on this square on this board
+    // if so, push the square into available move list
+    canBePutOn(board, square, available) {
+        if (board.checkWithin(square)) {        // square is within the board
+            if (!board.checkOccupance(square)) {        // square is empty
+                available.push(square)
+            }
+        }
+        return available
+    }
+
     getAvailableMoves(board) {
         throw new Error('This method must be implemented, and return a list of available moves');
     }

@@ -17,22 +17,14 @@ export default class Knight extends Piece {
         for (let i in nums1) {
             for (let j in nums2) {
                 let square = Square.at(current.row + nums1[i], current.col + nums2[j])
-                if (board.checkWithin(square)) {
-                    if (!board.checkOccupance(square)) {
-                        available.push(square)
-                    }
-                }
+                available = this.canBePutOn(board, square, available)
             }
         }
         // repeated code, can be improved!
         for (let i in nums2) {
             for (let j in nums1) {
                 let square = Square.at(current.row + nums2[i], current.col + nums1[j])
-                if (board.checkWithin(square)) {
-                    if (!board.checkOccupance(square)) {
-                        available.push(square)
-                    }
-                }
+                available = this.canBePutOn(board, square, available)
             }
         }
         return available
