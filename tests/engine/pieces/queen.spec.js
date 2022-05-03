@@ -5,6 +5,7 @@ import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
 import GameSettings from '../../../src/engine/gameSettings';
+import Knight from "../../../src/engine/pieces/knight";
 
 describe('Queen', () => {
 
@@ -73,4 +74,26 @@ describe('Queen', () => {
 
         moves.should.not.deep.include(Square.at(4, 7));
     });
+
+    it("can take opposing piece", () => {
+        const queen = new Queen(Player.WHITE);
+        const opposingPiece = new Pawn(Player.BLACK);
+        board.setPiece(Square.at(4, 4), queen);
+        board.setPiece(Square.at(5, 5), opposingPiece);
+
+        const moves = queen.getAvailableMoves(board);
+
+        moves.should.deep.include(Square.at(5, 5));
+    })
+
+    it("cannot take friendly piece", () => {
+        const queen = new Queen(Player.WHITE);
+        const friendlyPiece = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(4, 4), queen);
+        board.setPiece(Square.at(5, 5), friendlyPiece);
+
+        const moves = queen.getAvailableMoves(board);
+
+        moves.should.not.deep.include(Square.at(5, 5));
+    })
 });

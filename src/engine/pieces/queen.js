@@ -18,6 +18,9 @@ export default class Queen extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -29,6 +32,9 @@ export default class Queen extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -41,6 +47,9 @@ export default class Queen extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -52,6 +61,9 @@ export default class Queen extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -65,6 +77,9 @@ export default class Queen extends Piece {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col + j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
@@ -74,6 +89,9 @@ export default class Queen extends Piece {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col - j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
@@ -84,6 +102,9 @@ export default class Queen extends Piece {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col + j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
@@ -93,6 +114,9 @@ export default class Queen extends Piece {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col - j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)

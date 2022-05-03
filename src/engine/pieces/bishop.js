@@ -1,5 +1,6 @@
 import Piece from './piece';
 import Square from 'C:/Work/Training/chessington-js/src/engine/square';
+import Player from "../player";
 
 export default class Bishop extends Piece {
     constructor(player) {
@@ -19,41 +20,54 @@ export default class Bishop extends Piece {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col + j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
         for (let i in negs) {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col - j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
         }
 
         for (let i in poss) {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col + j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
         for (let i in poss) {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col - j)
             if (!this.verifyPutOn(board, square)) {
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)
-            // available = this.canBePutOn(board, square, available)
+
         }
 
         return available
 
     }
+
+
 }

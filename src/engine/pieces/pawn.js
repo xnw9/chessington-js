@@ -15,20 +15,28 @@ export default class Pawn extends Piece {
 
         // WHITE
         if (this.player == Player.WHITE) {
-
+            // square in front
             let square = Square.at(current.row + 1, current.col)
 
-            if (!this.verifyPutOn(board, square)) {             // if blocker in front, cannot make any move
+            if (!this.verifyPutOn(board, square)) {
                 return []
             }
 
-            available = this.canBePutOn(board, square, available)           // otherwise record this move
-            // a bit repeated
+            available = this.canPawnBePutOn(board, square, available)
 
-            if (!this.moved) {          // first move - so verify if can move two squares
+            if (!this.moved) {
                 let square = Square.at(current.row + 2, current.col)
-                available = this.canBePutOn(board, square, available)
+                available = this.canPawnBePutOn(board, square, available)
             }
+
+            // diagonal square - if can take the piece on the square
+            let squares = [Square.at(current.row + 1, current.col + 1), Square.at(current.row + 1, current.col - 1)]
+            for (let i in squares) {
+                if (this.canPawnTake(board, squares[i])) {
+                    available.push(squares[i])
+                }
+            }
+
 
         }
 
@@ -40,16 +48,49 @@ export default class Pawn extends Piece {
                 return []
             }
 
-            available = this.canBePutOn(board, square, available)
+            available = this.canPawnBePutOn(board, square, available)
 
             if (!this.moved) {
                 let square = Square.at(current.row - 2, current.col)
-                available = this.canBePutOn(board, square, available)
+                available = this.canPawnBePutOn(board, square, available)
+            }
+
+            // diagonal square - if can take the piece on the square
+            let squares = [Square.at(current.row - 1, current.col + 1), Square.at(current.row - 1, current.col - 1)]
+            for (let i in squares) {
+                if (this.canPawnTake(board, squares[i])) {
+                    available.push(squares[i])
+                }
             }
 
         }
 
         return available
 
+    }
+
+    canPawnTake(board, square) {
+        if (!board.checkOccupancy(square)) {
+            return false
+        }
+
+        if (this.player == board.getPiece(square).player) {
+            return false
+        }
+
+        let current = board.findPiece(this)
+
+        if (this.player == Player.WHITE) {
+            if (square.row == current.row + 1 && Math.abs(square.col - current.col)==1) {
+                return true
+            }
+            return false
+        }
+        if (this.player == Player.BLACK) {
+            if (square.row == current.row - 1 && Math.abs(square.col - current.col)==1) {
+                return true
+            }
+            return false
+        }
     }
 }

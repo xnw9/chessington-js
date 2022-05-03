@@ -20,6 +20,14 @@ export default class Board {
         this.board[square.row][square.col] = piece;
     }
 
+    removePieceFrom(square) {
+        this.board[square.row][square.col] = undefined   // a better way to empty square?
+    }
+
+    changeTo(square, newPiece) {
+        this.board[square.row][square.col] = newPiece
+    }
+
     getPiece(square) {
         return this.board[square.row][square.col];
     }
@@ -37,6 +45,10 @@ export default class Board {
 
     // check if it is occupied
     checkOccupancy(square) {
+        if (!this.board[square.row]) {
+            return false
+        }
+
         if (this.board[square.row][square.col]) {
             return true
         } else {
@@ -48,6 +60,15 @@ export default class Board {
     checkWithin(square) {
         return 0 <= square.row && square.row <= 7 && 0 <= square.col && square.col <= 7
     }
+
+    /*movePiece(fromSquare, toSquare) {
+        const movingPiece = this.getPiece(fromSquare);
+        if (!!movingPiece && movingPiece.player === this.currentPlayer) {
+            this.setPiece(toSquare, movingPiece);
+            this.setPiece(fromSquare, undefined);
+            this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
+        }
+    }*/
 
     movePiece(fromSquare, toSquare) {
         const movingPiece = this.getPiece(fromSquare);

@@ -16,6 +16,9 @@ export default class Rook extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -27,6 +30,9 @@ export default class Rook extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -39,6 +45,9 @@ export default class Rook extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
@@ -50,6 +59,9 @@ export default class Rook extends Piece {
             let square = Square.at(row, col)
 
             if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.canTake(board, square)) {
+                    available.push(square)
+                }
                 break
             }
             available.push(square)          // otherwise valid move
