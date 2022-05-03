@@ -45,25 +45,5 @@ describe('King', () => {
         moves.should.deep.have.members(expectedMoves);
     });
 
-    it("can take opposing piece", () => {
-        const king = new King(Player.WHITE);
-        const opposingPiece = new Pawn(Player.BLACK);
-        board.setPiece(Square.at(4, 4), king);
-        board.setPiece(Square.at(5, 5), opposingPiece);
-
-        const moves = king.getAvailableMoves(board);
-
-        moves.should.deep.include(Square.at(5, 5));
-    })
-
-    it("cannot take friendly piece", () => {
-        const king = new King(Player.WHITE);
-        const friendlyPiece = new Pawn(Player.WHITE);
-        board.setPiece(Square.at(4, 4), king);
-        board.setPiece(Square.at(5, 5), friendlyPiece);
-
-        const moves = king.getAvailableMoves(board);
-
-        moves.should.not.deep.include(Square.at(5, 5));
-    })
+    
 });
