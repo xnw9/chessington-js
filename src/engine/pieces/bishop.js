@@ -19,8 +19,8 @@ export default class Bishop extends Piece {
         for (let i in negs) {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col + j)
-            if (!this.verifyPutOn(board, square)) {
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
@@ -31,8 +31,8 @@ export default class Bishop extends Piece {
         for (let i in negs) {
             let j = negs[i]
             let square = Square.at(current.row + j, current.col - j)
-            if (!this.verifyPutOn(board, square)) {
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
@@ -43,8 +43,8 @@ export default class Bishop extends Piece {
         for (let i in poss) {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col + j)
-            if (!this.verifyPutOn(board, square)) {
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
@@ -55,8 +55,8 @@ export default class Bishop extends Piece {
         for (let i in poss) {
             let j = poss[i]
             let square = Square.at(current.row + j, current.col - j)
-            if (!this.verifyPutOn(board, square)) {
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break

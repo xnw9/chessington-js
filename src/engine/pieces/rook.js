@@ -15,8 +15,8 @@ export default class Rook extends Piece {
             let col = current.col
             let square = Square.at(row, col)
 
-            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
@@ -29,8 +29,8 @@ export default class Rook extends Piece {
             let col = current.col
             let square = Square.at(row, col)
 
-            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
@@ -44,8 +44,8 @@ export default class Rook extends Piece {
             let row = current.row
             let square = Square.at(row, col)
 
-            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break
@@ -58,8 +58,8 @@ export default class Rook extends Piece {
             let row = current.row
             let square = Square.at(row, col)
 
-            if (!this.verifyPutOn(board, square)) {         // stop as soon as meeting another piece / out of board
-                if (this.canTake(board, square)) {
+            if (!this.checkEmptySquare(board, square)) {         // stop as soon as meeting another piece / out of board
+                if (this.checkTake(board, square)) {
                     available.push(square)
                 }
                 break

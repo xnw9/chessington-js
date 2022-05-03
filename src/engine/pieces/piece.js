@@ -1,71 +1,87 @@
+import Player from "../player";
+
 export default class Piece {
     constructor(player) {
         this.player = player;
         this.moved = 0              // but only for pawn
     }
 
-    // check if the piece can be placed on this square on this board
+    // check if the piece can be placed, for knight, king (discrete positions)
     // if so, push the square into available move list
-    canBePutOn(board, square, available) {
+    canBePutOn(board, square, available) {          //
         if (board.checkWithin(square)) {        // square is within the board
             if (!board.checkOccupancy(square)) {        // square is empty
                 available.push(square)
             } else {
-                if (this.checkTake(board, square)) {
+                if (this.checkTake(board, square)) {          // if not empty but the piece on the square can be taken
                     available.push(square)
                 }
             }
         }
         return available
     }
+    
 
+    // similar, but does not include piece-capturing, for pawn
     canPawnBePutOn(board, square, available) {
-        if (board.checkWithin(square)) {        // square is within the board
-            if (!board.checkOccupancy(square)) {        // square is empty
+        if (board.checkWithin(square)) {
+            if (!board.checkOccupancy(square)) {
                 available.push(square)
             }
         }
         return available
     }
 
+    // check if the piece on the square can be taken
     checkTake(board, square) {
+        if (!board.checkOccupancy(square)) {
+            return false
+        }
+
         let anotherPiece = board.getPiece(square)
 
-        if (anotherPiece.constructor.name == "King") {
+        if (anotherPiece.constructor.name == "King" || this.player == anotherPiece.player) {
             return false
         }
-        if (this.player == anotherPiece.player) {
-            return false
-        }
+
         return true
     }
 
-    verifyPutOn(board, square) {
-        if (board.checkWithin(square)) {        // square is within the board
-            if (!board.checkOccupancy(square)) {        // square is empty
+    checkPawnTake(board, square) {
+        if (!board.checkOccupancy(square)) {
+            return false
+        }
+
+        if (this.player == board.getPiece(square).player) {
+            return false
+        }
+
+        let current = board.findPiece(this)
+
+        if (this.player == Player.WHITE) {
+            if (square.row == current.row + 1 && Math.abs(square.col - current.col)==1) {
+                return true
+            }
+            return false
+        }
+        if (this.player == Player.BLACK) {
+            if (square.row == current.row - 1 && Math.abs(square.col - current.col)==1) {
+                return true
+            }
+            return false
+        }
+    }
+
+    // for rook, bishop, queen (need to stop right before or at the position of the existing piece on the square)
+    checkEmptySquare(board, square) {
+        if (board.checkWithin(square)) {
+            if (!board.checkOccupancy(square)) {
                 return true
             }
         }
         return false
     }
 
-    // combination of verify: two outputs, canBePutOn & take
-    // checkWithin true + checkOccupancy false = true, false
-    // checkWithin true + checkOccupancy true + take true = true, true
-    // checkWithin true + checkOccupancy true + take false = false, false
-
-    verifyPlace(board, square) {
-        if (board.checkWithin(square)) {
-            if (!board.checkOccupancy(square)) {            // empty square
-                return [true, false]
-            } else {
-                if (this.checkTake(square)) {               // if can take the piece on the square
-                    return [true, true]
-                }
-            }
-        }
-        return [false, false]
-    }
 
     getAvailableMoves(board) {
         throw new Error('This method must be implemented, and return a list of available moves');
@@ -77,32 +93,5 @@ export default class Piece {
         this.moved = this.moved + 1     // if only required for pawn, maybe only add to pawn's function?
     }
 
-    canTake(board, square) {
-        if (!board.checkOccupancy(square)) {
-            return false
-        }
 
-        if (this.player == board.getPiece(square).player) {
-            return false
-        }
-
-        return true
-    }
-
-    // need to consider about occupied squares
-    //      so function to verify if it is capturable (opposed piece is not a king / they are on opposite side)
-    //      if so, add it into available moves
-    //      move the piece as usual
-    // piece.function(square) -> true (piece can take the piece on square)
-    //      another-piece = board.getPiece(square)
-    //      piece.player == another-piece.player
-    //      another-piece.type == king
-    //      then return false. otherwise true
-    // if square is in route && square.occupancy is true && piece.function(square) is true
-    //      add square to available moves
-    //      still need to remove piece from square before putting?!
-    // verifyCanPut -> if false, canTake -> if true, add square to available and break
-    //                                  -> if false, break
-
-    // write test for different pieces
 }
