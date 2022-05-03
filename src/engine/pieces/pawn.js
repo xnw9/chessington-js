@@ -32,7 +32,7 @@ export default class Pawn extends Piece {
             // diagonal square - if can take the piece on the square
             let squares = [Square.at(current.row + 1, current.col + 1), Square.at(current.row + 1, current.col - 1)]
             for (let i in squares) {
-                if (this.checkPawnTake(board, squares[i])) {
+                if (this.checkTake(board, squares[i])) {
                     available.push(squares[i])
                 }
             }
@@ -58,9 +58,10 @@ export default class Pawn extends Piece {
             // diagonal square - if can take the piece on the square
             let squares = [Square.at(current.row - 1, current.col + 1), Square.at(current.row - 1, current.col - 1)]
             for (let i in squares) {
-                if (this.checkPawnTake(board, squares[i])) {
+                if (this.checkTake(board, squares[i])) {
                     available.push(squares[i])
                 }
+
             }
 
         }

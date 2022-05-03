@@ -23,6 +23,7 @@ export default class Piece {
 
 
     // similar, but does not include piece-capturing, for pawn
+    // since the rule is different
     canPawnBePutOn(board, square, available) {
         if (board.checkWithin(square)) {
             if (!board.checkOccupancy(square)) {
@@ -32,7 +33,7 @@ export default class Piece {
         return available
     }
 
-    // check if the piece on the square can be taken
+    // check if the piece on the square can be taken: not king & different colour
     checkTake(board, square) {
         if (!board.checkOccupancy(square)) {
             return false
@@ -47,33 +48,8 @@ export default class Piece {
         return true
     }
 
-    checkPawnTake(board, square) {
-        if (!board.checkOccupancy(square)) {
-            return false
-        }
-
-        let anotherPiece = board.getPiece(square)
-        if (anotherPiece.constructor.name == "King" || this.player == board.getPiece(square).player) {
-            return false
-        }
-
-        let current = board.findPiece(this)
-
-        if (this.player == Player.WHITE) {
-            if (square.row == current.row + 1 && Math.abs(square.col - current.col) == 1) {
-                return true
-            }
-            return false
-        }
-        if (this.player == Player.BLACK) {
-            if (square.row == current.row - 1 && Math.abs(square.col - current.col) == 1) {
-                return true
-            }
-            return false
-        }
-    }
-
-    // for rook, bishop, queen (need to stop right before or at the position of the existing piece on the square)
+    // for rook, bishop, queen (those need to stop right before or at the position of the existing piece on the square)
+    // functions in their classes will use loop to record the moves
     checkEmptySquare(board, square) {
         if (board.checkWithin(square)) {
             if (!board.checkOccupancy(square)) {
